@@ -255,6 +255,28 @@ h1.winner-name.winner { color: var(--primary-color); text-shadow: 0 0 0.9375rem 
 
 .modal-confirm-button { align-self: center; visibility: hidden; }
 
+.modal-winner-chat-log {
+    list-style: none;
+    max-height: 11.875rem;
+    overflow-y: auto;
+    font-size: 0.9rem;
+    background: #111;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    margin-top: 0.9375rem;
+    display: none;
+    text-align: left;
+}
+.modal-winner-chat-log li {
+    padding: 0.25rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--secondary-text-color);
+    word-break: break-word;
+}
+.modal-winner-chat-log li:last-child {
+    border-bottom: none;
+}
+
 footer { text-align: center; padding: 3.75rem 1.25rem; color: var(--secondary-text-color); font-size: 0.8rem; line-height: 1.6; }
 footer p { margin-bottom: 0.3125rem; }
 footer p.cookie-note { font-size: 0.65rem; color: var(--secondary-text-color); }
@@ -312,6 +334,7 @@ body.modal-active #participant-list *, body.modal-active #winners-list * {
 #participant-list,
 #winners-list,
 #claim-chat-log,
+.modal-winner-chat-log,
 #multi-winner-modal-container {
   scrollbar-width: thin;
   scrollbar-color: var(--border-color) var(--bg-color);
@@ -321,6 +344,7 @@ body.modal-active #participant-list *, body.modal-active #winners-list * {
 #participant-list::-webkit-scrollbar,
 #winners-list::-webkit-scrollbar,
 #claim-chat-log::-webkit-scrollbar,
+.modal-winner-chat-log::-webkit-scrollbar,
 #multi-winner-modal-container::-webkit-scrollbar {
   width: 8px; 
   height: 8px; 
@@ -329,6 +353,7 @@ body.modal-active #participant-list *, body.modal-active #winners-list * {
 #participant-list::-webkit-scrollbar-track,
 #winners-list::-webkit-scrollbar-track,
 #claim-chat-log::-webkit-scrollbar-track,
+.modal-winner-chat-log::-webkit-scrollbar-track,
 #multi-winner-modal-container::-webkit-scrollbar-track {
   background: transparent; 
 }
@@ -336,6 +361,7 @@ body.modal-active #participant-list *, body.modal-active #winners-list * {
 #participant-list::-webkit-scrollbar-thumb,
 #winners-list::-webkit-scrollbar-thumb,
 #claim-chat-log::-webkit-scrollbar-thumb,
+.modal-winner-chat-log::-webkit-scrollbar-thumb,
 #multi-winner-modal-container::-webkit-scrollbar-thumb {
   background-color: var(--border-color); 
   border-radius: 10px; 
@@ -344,13 +370,15 @@ body.modal-active #participant-list *, body.modal-active #winners-list * {
 }
 
 
-#claim-chat-log::-webkit-scrollbar-thumb {
+#claim-chat-log::-webkit-scrollbar-thumb,
+.modal-winner-chat-log::-webkit-scrollbar-thumb {
     border: 2px solid #111;
 }
 
 #participant-list::-webkit-scrollbar-thumb:hover,
 #winners-list::-webkit-scrollbar-thumb:hover,
 #claim-chat-log::-webkit-scrollbar-thumb:hover,
+.modal-winner-chat-log::-webkit-scrollbar-thumb:hover,
 #multi-winner-modal-container::-webkit-scrollbar-thumb:hover {
   background-color: #4a4b50; 
 }

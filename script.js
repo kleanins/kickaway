@@ -228,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let kickChannelName = '', kickChatroomId  = null, ws = null;
     let giveawayKeyword = '', isGiveawayRunning = false, isDrawInProgress = false;
     let participants   = new Set(), allEntries = [], winners = [];
-    let claimInterval = null, lastClaimWinner = null;
+    let modalChatWinners = [], claimInterval = null, lastClaimWinner = null;
 
     function showScreen(scr) {
         loginScreen.style.display = 'none';
@@ -367,16 +367,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleChatMessage(msg) {
-        
+
         if (lastClaimWinner && msg.sender.username.toLowerCase() === lastClaimWinner.name.toLowerCase()) {
-            
-            
             const li = document.createElement('li');
             li.textContent = `${msg.sender.username}: ${msg.content}`;
-            claimChatLog.prepend(li);
-
-            
-            
+            claimChatLog.append(li);
+            claimChatLog.scrollTop = claimChatLog.scrollHeight;
             if (claimInterval) {
                 clearInterval(claimInterval);
                 claimInterval = null;
@@ -387,10 +383,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateWinnersListUI();
                 saveState();
             }
-            
-            
         }
         
+
+        const modalWinner = modalChatWinners.find(w => w.name === msg.sender.username.toLowerCase());
+        if (modalWinner) {
+            if (modalWinner.logElement.style.display !== 'block') {
+                modalWinner.logElement.style.display = 'block';
+            }
+            const li = document.createElement('li');
+            li.textContent = `${msg.sender.username}: ${msg.content}`;
+            modalWinner.logElement.append(li);
+            modalWinner.logElement.scrollTop = modalWinner.logElement.scrollHeight;
+        }
+        
+
         if (!isGiveawayRunning || participants.has(msg.sender.username)) return;
         const userMessage = msg.content.trim().toLowerCase();
         if (giveawayKeyword === '' || userMessage === giveawayKeyword) {
@@ -400,8 +407,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     
     function addParticipant(sender) {
-        
-        
         const existingLi = [...participantList.children].find(li => li.textContent === sender.username);
         if (existingLi) {
             return; 
@@ -439,7 +444,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const uniqueParticipantCount = new Set(drawPool).size;
         const finalWinnerCount = Math.min(requestedWinnerCount, uniqueParticipantCount);
 
-        if (finalWinnerCount === 0) { alert(translations[currentLang].alertNoParticipants); finishDrawCycle(); return; }
+        if (finalWinnerCount === 0) {
+            alert(translations[currentLang].alertNoParticipants);
+            finishDrawCycle();
+            return;
+        }
 
         const winnersToDraw = [];
         let tempDrawPool = [...drawPool];
@@ -459,15 +468,13 @@ document.addEventListener('DOMContentLoaded', () => {
         updateDrawButtonState();          
         updateWinnersListUI();
         
-        
         await displayMultiWinnerModals(winnersToDraw, drawPool, useClaimFeature);
         
         if (useClaimFeature) {
             lastClaimWinner = winnersToDraw[0];
-            
-        } else {
-            finishDrawCycle();
-        }
+
+        } 
+
     }
 
     function displayMultiWinnerModals(drawnWinners, fullPool, useClaimFeature) {
@@ -476,6 +483,7 @@ document.addEventListener('DOMContentLoaded', () => {
             multiWinnerModalContainer.innerHTML = '';
             multiWinnerModalContainer.style.display = 'flex';
             
+            const showChatLogs = drawnWinners.length <= 3;
             const count = drawnWinners.length;
             const topRowCount = (count <= 3) ? count : Math.ceil(count / 2);
 
@@ -497,7 +505,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const animationBoxEl = modalWrapper.querySelector('.winner-animation-box');
                 const confirmButton = modalWrapper.querySelector('.modal-confirm-button');
                 confirmButton.textContent = translations[currentLang].okButton;
-
+                const chatLogEl = modalWrapper.querySelector('.modal-winner-chat-log');
 
                 if (index < topRowCount) {
                     row1.appendChild(modalWrapper);
@@ -507,10 +515,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 confirmButton.addEventListener('click', () => {
                     modalWrapper.classList.add('is-hidden');
-
+                    
+                    if (showChatLogs) {
+                        modalChatWinners = modalChatWinners.filter(w => w.name !== winner.name.toLowerCase());
+                    }
                     
                     if (useClaimFeature && drawnWinners.length === 1) {
-                         
                         handleWinnerClaim();
                     }
                 });
@@ -520,6 +530,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         if ([...row1.children, ...(row2 ? row2.children : [])].every(m => m.classList.contains('is-hidden'))) {
                             multiWinnerModalContainer.style.display = 'none';
                             document.body.classList.remove('modal-active');
+                            
+
+                            if (!useClaimFeature) {
+                                finishDrawCycle();
+                            }
                         }
                     }
                 });
@@ -527,6 +542,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 return runDrawAnimation(fullPool, winner.name, animationBoxEl).then(() => {
                     titleEl.textContent = translations[currentLang].modalWinnerTitle;
                     confirmButton.style.visibility = 'visible';
+
+                    if (showChatLogs) {
+                        chatLogEl.addEventListener('wheel', (e) => e.stopPropagation());
+                        modalChatWinners.push({ name: winner.name.toLowerCase(), logElement: chatLogEl });
+                    }
                 });
             });
             Promise.all(animationPromises).then(resolve);
@@ -574,61 +594,56 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function animateWheel(pool, finalWinner, animationBoxEl, resolve) {
-    animationBoxEl.innerHTML = `<div class="wheel-animation-container"><ul class="wheel-list"></ul></div>`;
-    const wheelContainer = animationBoxEl.querySelector('.wheel-animation-container');
-    const wheelList = animationBoxEl.querySelector('.wheel-list');
-    
-    let uniquePool = [...new Set(pool)];
-    if (uniquePool.length === 0) uniquePool.push(finalWinner);
-    
-    for (let i = uniquePool.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[uniquePool[i], uniquePool[j]] = [uniquePool[j], uniquePool[i]]; }
-    const cycles = Math.ceil(200 / uniquePool.length);
-    let repeatedPool = [];
-    for (let c = 0; c < cycles; c++) {
-        const shuffled = [...uniquePool];
-        for (let i = shuffled.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        animationBoxEl.innerHTML = `<div class="wheel-animation-container"><ul class="wheel-list"></ul></div>`;
+        const wheelContainer = animationBoxEl.querySelector('.wheel-animation-container');
+        const wheelList = animationBoxEl.querySelector('.wheel-list');
+        
+        let uniquePool = [...new Set(pool)];
+        if (uniquePool.length === 0) uniquePool.push(finalWinner);
+        
+        for (let i = uniquePool.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[uniquePool[i], uniquePool[j]] = [uniquePool[j], uniquePool[i]]; }
+        const cycles = Math.ceil(200 / uniquePool.length);
+        let repeatedPool = [];
+        for (let c = 0; c < cycles; c++) {
+            const shuffled = [...uniquePool];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            repeatedPool.push(...shuffled);
         }
-        repeatedPool.push(...shuffled);
+        const targetIndex = repeatedPool.length - Math.floor(uniquePool.length / 2) - 1;
+        const winnerIsInPool = repeatedPool.includes(finalWinner);
+        if (!winnerIsInPool) {
+            repeatedPool[targetIndex] = finalWinner;
+        } else {
+            const currentIndex = repeatedPool.indexOf(finalWinner);
+            [repeatedPool[currentIndex], repeatedPool[targetIndex]] = [repeatedPool[targetIndex], repeatedPool[currentIndex]];
+        }
+        repeatedPool = repeatedPool.filter((name, idx) => idx === targetIndex || name !== finalWinner);
+        const newWinnerIndex = repeatedPool.indexOf(finalWinner);
+        
+        repeatedPool.forEach((name, index) => {
+            const li = document.createElement('li');
+            li.textContent = name;
+            if (index === newWinnerIndex) li.classList.add('winner');
+            wheelList.appendChild(li);
+        });
+
+        setTimeout(() => {
+            const containerStyle = window.getComputedStyle(wheelContainer);
+            const itemStyle = window.getComputedStyle(wheelList.querySelector('li'));
+            const containerHeight = parseFloat(containerStyle.height);
+            const itemHeight = parseFloat(itemStyle.height);
+            const finalY = (containerHeight / 2) - (newWinnerIndex * itemHeight) - (itemHeight / 2);
+            wheelList.style.transform = `translateY(${finalY}px)`;
+        }, 100);
+
+        wheelList.addEventListener('transitionend', () => {
+            wheelList.classList.add('finished');
+            resolve();
+        }, { once: true });
     }
-    const targetIndex = repeatedPool.length - Math.floor(uniquePool.length / 2) - 1;
-    const winnerIsInPool = repeatedPool.includes(finalWinner);
-    if (!winnerIsInPool) {
-        repeatedPool[targetIndex] = finalWinner;
-    } else {
-        const currentIndex = repeatedPool.indexOf(finalWinner);
-        [repeatedPool[currentIndex], repeatedPool[targetIndex]] = [repeatedPool[targetIndex], repeatedPool[currentIndex]];
-    }
-    repeatedPool = repeatedPool.filter((name, idx) => idx === targetIndex || name !== finalWinner);
-    const newWinnerIndex = repeatedPool.indexOf(finalWinner);
-    
-    repeatedPool.forEach((name, index) => {
-        const li = document.createElement('li');
-        li.textContent = name;
-        if (index === newWinnerIndex) li.classList.add('winner');
-        wheelList.appendChild(li);
-    });
-
-    setTimeout(() => {
-        
-        
-        const containerStyle = window.getComputedStyle(wheelContainer);
-        const itemStyle = window.getComputedStyle(wheelList.querySelector('li'));
-
-        const containerHeight = parseFloat(containerStyle.height);
-        const itemHeight = parseFloat(itemStyle.height);
-        
-
-        const finalY = (containerHeight / 2) - (newWinnerIndex * itemHeight) - (itemHeight / 2);
-        wheelList.style.transform = `translateY(${finalY}px)`;
-    }, 100);
-
-    wheelList.addEventListener('transitionend', () => {
-        wheelList.classList.add('finished');
-        resolve();
-    }, { once: true });
-}
 
     function handleWinnerClaim() {
         claimSection.style.display = 'flex';
@@ -636,11 +651,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         claimCountdown.className = '';
         claimConfirmButton.style.display = 'none';
-
         
         if (claimChatLog.children.length > 0) {
-            
-            
             lastClaimWinner.confirmed = true;
             claimCountdown.textContent = translations[currentLang].claimConfirmed;
             claimCountdown.className = 'confirmed';
@@ -649,7 +661,6 @@ document.addEventListener('DOMContentLoaded', () => {
             saveState();
             claimInterval = null; 
         } else {
-            
             let t = parseInt(claimDurationInput.value);
             claimCountdown.textContent = translations[currentLang].claimCountdownText(lastClaimWinner.name, t);
             claimInterval = setInterval(() => {
@@ -675,6 +686,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (claimInterval) { clearInterval(claimInterval); claimInterval = null; }
         claimSection.style.display = 'none';
         claimChatLog.innerHTML = '';
+        modalChatWinners = [];
         resetButton.disabled = false;
         updateDrawButtonState();
         saveState();
@@ -710,7 +722,8 @@ document.addEventListener('DOMContentLoaded', () => {
         allEntries = [];
         participantList.innerHTML = '';
         participantCount.textContent = '0';
-        claimChatLog.innerHTML = ''; 
+        claimChatLog.innerHTML = '';
+        modalChatWinners = [];
         updateDrawButtonState();
     }
 
@@ -726,7 +739,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const savedLang = localStorage.getItem('kickawayLang');
         const browserLang = navigator.language.split('-')[0];
         const initialLang = savedLang || (browserLang === 'tr' ? 'tr' : 'en');
-
         
         languageSwitcher.innerHTML = `
             <button id="lang-tr-button" class="small-button">Türkçe</button>
@@ -737,7 +749,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         setLanguage(initialLang);
         
-
         loadInitialState();
         connectButton.addEventListener('click', handleLogin);
         channelInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') connectButton.click(); });
@@ -760,31 +771,20 @@ document.addEventListener('DOMContentLoaded', () => {
         subMultiplierSlider.addEventListener('input', (e) => { subMultiplierValue.textContent = e.target.value; saveState(); });
         updateClaimSettingsState();
 
-
         const scrollableElements = document.querySelectorAll(
             '#participant-list, #winners-list, #claim-chat-log, #multi-winner-modal-container'
         );
 
         function preventPageScroll(event) {
             const element = event.currentTarget; 
-            
             const { scrollTop, scrollHeight, clientHeight } = element;
-
-            
             const deltaY = event.deltaY;
-
-            
             const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1;
-            
             const isAtTop = scrollTop === 0;
-
-            
             if ((deltaY > 0 && isAtBottom) || (deltaY < 0 && isAtTop)) {
-                
                 event.preventDefault();
             }
         }
-
         
         scrollableElements.forEach(el => {
             el.addEventListener('wheel', preventPageScroll);
