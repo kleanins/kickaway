@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kickaway - Kick Giveaway Tool</title>
+    <meta name="description" content="An open-source, client-side giveaway tool for Kick.com">
+    <!-- kickaway v5 -->
+    <meta property="og:title" content="Kickaway - Kick Giveaway Tool">
+    <meta property="og:description" content="An open-source, client-side giveaway tool for Kick.com">
+    <meta property="og:image" content="https://www.kickaway.co/favicon.png">
+    <meta property="og:url" content="https://www.kickaway.co/">
+    <meta property="og:type" content="website">
+
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="any">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="app-wrapper">
+        
+        <div id="app-container" data-nosnippet>
+            <div id="login-screen" class="screen">
+                <h1 data-lang-key="loginTitle">kickaway.co</h1>
+                <p data-lang-key="loginPrompt">Enter the Kick channel for the giveaway</p>
+                <input type="text" id="channel-input" data-lang-key-placeholder="loginPlaceholder" placeholder="E.g., xqc">
+                <button id="connect-button" data-lang-key="connectButton">Connect</button>
+            </div>
+
+            <div id="main-screen" class="screen" style="display: none;">
+                <header>
+                    <div class="channel-info">
+                        <span data-lang-key="connectedTo">Connected to:</span> <strong id="connected-channel-name"></strong>
+                    </div>
+                    <div id="header-menu-container" class="header-menu-container">
+                        <button id="header-menu-toggle" class="icon-button" data-lang-key-aria-label="settingsMenuAria">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82-.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06-.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                        </button>
+                        <div id="header-menu-dropdown" class="header-menu-dropdown">
+                            <div id="language-switcher">
+                                
+                            </div>
+                            <button id="change-channel-button" class="small-button" data-lang-key="changeChannel">Change Channel</button>
+                            <button id="clear-all-data-button" class="small-button danger-button" data-lang-key="clearAllData">Clear All Data</button>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="main-content">
+                    <div class="settings-panel">
+                        <h2 data-lang-key="settingsTitle">Settings</h2>
+                        <label for="keyword-input" data-lang-key="keywordLabel">Keyword (optional):</label>
+                        <input type="text" id="keyword-input" placeholder="">
+
+                        <label for="winner-count-input" data-lang-key="winnerCountLabel">Number of Winners:</label>
+                        <input type="number" id="winner-count-input" value="1" min="1" max="10">
+                        
+                        <div class="checkbox-wrapper">
+                             <label for="sub-only-checkbox">
+                                <input type="checkbox" id="sub-only-checkbox">
+                                <span data-lang-key="subOnlyLabel">Subscribers only</span>
+                            </label>
+                        </div>
+
+                        <label for="sub-multiplier-slider">
+                            <span data-lang-key="subMultiplierLabel">Subscriber Multiplier:</span>
+                            <span id="sub-multiplier-value">1</span>x
+                        </label>
+                        <input type="range" id="sub-multiplier-slider" min="1" max="10" value="1">
+                        
+                        <div class="checkbox-wrapper">
+                            <label for="winner-claim-checkbox">
+                                <input type="checkbox" id="winner-claim-checkbox">
+                                <span data-lang-key="winnerClaimLabel">Winner confirmation (for single winner)</span>
+                            </label>
+                        </div>
+
+                        <label for="claim-duration-input" data-lang-key="claimDurationLabel">Confirmation Time (seconds):</label>
+                        <input type="number" id="claim-duration-input" value="30" min="10">
+
+                        <label for="animation-select" data-lang-key="animationLabel">Giveaway Animation:</label>
+                        <select id="animation-select">
+                            <option value="wheel" selected data-lang-key="animationWheel">Wheel</option>
+                            <option value="slot-machine" data-lang-key="animationClassic">Classic</option>
+                            <option value="char-scramble" data-lang-key="animationScramble">Character Scramble</option>                            
+                        </select>
+                        
+                        <button id="start-giveaway-button" data-lang-key="startGiveawayButton">Start Giveaway</button>
+                        <p id="status-message" class="status-waiting" data-lang-key="statusWaiting">Press "Start" to connect to the chat.</p>
+                    </div>
+
+                    <div class="giveaway-panel">
+                        <h2><span data-lang-key="participantsTitle">Participants</span> (<span id="participant-count">0</span>)</h2>
+                        <ul id="participant-list"></ul>
+
+                        <div id="claim-section">
+                            <h3 data-lang-key="claimTitle">Awaiting Confirmation: <span id="claim-winner-name"></span></h3>
+                            <p id="claim-countdown"></p>
+                            <ul id="claim-chat-log"></ul>
+                            <button id="claim-confirm-button" class="small-button" data-lang-key="okButton">OK</button>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button id="draw-button" disabled data-lang-key="drawButton">Draw Winner</button>
+                            <button id="reset-button" data-lang-key="resetButton">Reset</button>
+                        </div>
+                    </div>
+
+                    <div class="winners-panel">
+                        <h2><span data-lang-key="winnersTitle">Winners</span> (<span id="winners-count">0</span>)</h2>
+                        <ul id="winners-list"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <footer>
+            <p data-lang-key="footerDisclaimer1">This tool was created by an independent developer and has no official affiliation with Kick.com</p>
+            <div data-nosnippet>
+                <p data-lang-key="footerDisclaimer2">Any consequences arising from its use are the sole responsibility of the user.</p>
+                <p class="cookie-note" data-lang-key="footerDisclaimer3">Kickaway works entirely client-side; giveaway data lives only in your browser’s local storage.</p>
+                <p class="cookie-note" data-lang-key="footerDisclaimer4">This site collects anonymous statistics.</p>
+                <p class="cookie-note">
+                    <a href="https://github.com/kleanins/kickaway"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                       github
+                    </a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <div id="multi-winner-modal-container"></div>
+
+    <div id="modal-template" style="display: none;">
+        <div class="modal-instance">
+            <div class="modal-content">
+                <p class="winner-title-text" data-lang-key="modalDrawing">Drawing...</p>
+                <div class="winner-animation-box"></div>
+                <button class="modal-confirm-button small-button" data-lang-key="okButton">OK</button>
+                <ul class="modal-winner-chat-log"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="/_vercel/insights/script.js" defer></script>
+</body>
+</html>
