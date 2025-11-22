@@ -22,9 +22,9 @@ body {
     color: var(--primary-text-color);
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center; 
     min-height: 100vh;
-    padding: 1.875rem 1.25rem 1.25rem; 
+    padding: 1rem;
 }
 
 #app-wrapper {
@@ -59,10 +59,12 @@ body {
     margin: 0;
     align-items: center;
     text-align: center;
-    justify-content: flex-start;
-    padding: 0 2.5rem 3.75rem; 
-    padding-top: 20%;
+    justify-content: center; 
+    padding: 0 2.5rem; 
+
+    
     gap: 1.875rem; 
+    height: 100%; 
 }
 
 h1 { color: var(--primary-color); font-size: 2.5rem; margin-bottom: 0.5rem; }
