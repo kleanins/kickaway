@@ -279,7 +279,7 @@ h1.winner-name.winner { color: var(--primary-color); text-shadow: 0 0 0.9375rem 
     border-bottom: none;
 }
 
-footer { text-align: center; padding: 3.75rem 1.25rem; color: var(--secondary-text-color); font-size: 0.8rem; line-height: 1.6; }
+footer { text-align: center; padding: 6rem 1.25rem; color: var(--secondary-text-color); font-size: 0.8rem; line-height: 1.6; }
 footer p { margin-bottom: 0.3125rem; }
 footer p.cookie-note { font-size: 0.65rem; color: var(--secondary-text-color); }
 footer .cookie-note a, footer .cookie-note a:visited { color: inherit; text-decoration: underline; }
