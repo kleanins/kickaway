@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alertChannelNotFound: 'Kanal bulunamadı veya API hatası.',
             alertChatroomIDError: 'Chatroom ID alınamadı.',
             alertNoParticipants: 'Çekilişe katılan kimse yok!',
+            alertApi: 'Takip süresi kontrol edilirken hata!',
             confirmChangeChannel: 'Kanal seçim ekranına dönülecektir. Emin misiniz?',
             confirmClearAllData: 'DİKKAT! Tüm kanallara ait ayarlar ve kazanan listeleri kalıcı olarak silinecektir. Emin misiniz?',
             footerDisclaimer1: "Bu araç bağımsız bir geliştirici tarafından oluşturulmuştur ve Kick.com ile herhangi bir resmi ilişkisi yoktur.",
@@ -111,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alertChannelNotFound: 'Channel not found or API error.',
             alertChatroomIDError: 'Could not get Chatroom ID.',
             alertNoParticipants: 'There are no participants in the giveaway!',
+            alertApi: 'Error while checking Follow Length!',
             confirmChangeChannel: 'You will be returned to the channel selection screen. Are you sure?',
             confirmClearAllData: 'WARNING! All settings and winner lists for all channels will be permanently deleted. Are you sure?',
             footerDisclaimer1: "This tool was created by an independent developer and has no official affiliation with Kick.com",
@@ -501,7 +503,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (minDays <= 0) return true; 
         try {
             const r = await fetch(`https://kick.com/api/v2/channels/${channelSlug}/users/${username}`);
-            if (!r.ok) return false; 
+            if (!r.ok) return false;
             const data = await r.json();
             
             if (!data.following_since) return false; 
@@ -514,7 +516,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return diffDays >= minDays;
         } catch (e) {
             console.error("Follow check failed", e);
-            return true; 
+            return null;
         }
     }
 
@@ -650,16 +652,25 @@ document.addEventListener('DOMContentLoaded', () => {
         startPendingAnimation(finalCountToDraw);
 
         
+        let apiErrorOccurred = false;
+
         while (winnersToDraw.length < finalCountToDraw && potentialWinnersLeft > 0) {
             
             const winnerIndex = Math.floor(Math.random() * drawPool.length);
             const candidateName = drawPool[winnerIndex];
             
-            
             let isValid = true;
             if (minFollowDays > 0) {
-                isValid = await checkFollowAge(kickChannelSlug, candidateName, minFollowDays);
+
+                const checkResult = await checkFollowAge(kickChannelSlug, candidateName, minFollowDays);
                 
+
+                if (checkResult === null) {
+                    apiErrorOccurred = true;
+                    break; 
+                }
+
+                isValid = checkResult;
                 await new Promise(r => setTimeout(r, 200)); 
             }
 
@@ -681,11 +692,19 @@ document.addEventListener('DOMContentLoaded', () => {
         
         stopPendingAnimation();
 
+        if (apiErrorOccurred) {
+             document.body.classList.remove('modal-active');
+             multiWinnerModalContainer.style.display = 'none';
+             alert(translations[currentLang].alertApi);
+             finishDrawCycle();
+             return;
+        }
+
         
         if (winnersToDraw.length === 0) {
              document.body.classList.remove('modal-active');
              multiWinnerModalContainer.style.display = 'none';
-             alert(translations[currentLang].alertNoParticipants + " (Filters too strict?)");
+             alert(translations[currentLang].alertNoParticipants + " (Follow Length too strict?)");
              finishDrawCycle();
              return;
         }
