@@ -901,20 +901,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const wheelContainer = animationBoxEl.querySelector('.wheel-animation-container');
         const wheelList = animationBoxEl.querySelector('.wheel-list');
         
+
         let uniquePool = [...new Set(pool)];
         
-        if (uniquePool.length === 0) uniquePool = [finalWinner, "User1", "User2", "User3"]; 
-        if (uniquePool.length === 1 && uniquePool[0] === finalWinner) {
-             uniquePool.push("...", "...", "...");
-        }
+
+        let noisePool = uniquePool.filter(n => n !== finalWinner);
+
+
+        if (noisePool.length === 0) noisePool = ["User1", "User2", "User3"];
+        while (noisePool.length < 5) noisePool = noisePool.concat(noisePool); 
         
-        
-        for (let i = uniquePool.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[uniquePool[i], uniquePool[j]] = [uniquePool[j], uniquePool[i]]; }
-        
-        const cycles = Math.ceil(200 / uniquePool.length);
+
+        const cycles = Math.ceil(200 / noisePool.length);
         let repeatedPool = [];
         for (let c = 0; c < cycles; c++) {
-            const shuffled = [...uniquePool];
+            const shuffled = [...noisePool];
+
             for (let i = shuffled.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
@@ -922,16 +924,18 @@ document.addEventListener('DOMContentLoaded', () => {
             repeatedPool.push(...shuffled);
         }
         
-        
-        const targetIndex = repeatedPool.length - Math.floor(uniquePool.length / 2) - 1;
+
+        const targetIndex = repeatedPool.length - Math.floor(noisePool.length / 2) - 1;
         repeatedPool[targetIndex] = finalWinner;
         
+
         repeatedPool.forEach((name, index) => {
             const li = document.createElement('li');
             li.textContent = name;
             if (index === targetIndex) li.classList.add('winner');
             wheelList.appendChild(li);
         });
+
 
         setTimeout(() => {
             const containerStyle = window.getComputedStyle(wheelContainer);
