@@ -427,6 +427,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalWinner = modalChatWinners.find(w => w.name === msg.sender.username.toLowerCase());
         if (modalWinner) {
             if (modalWinner.mode === 'below') {
+                if (modalWinner.logElement.classList.contains('waiting')) {
+                    modalWinner.logElement.classList.remove('waiting');
+                }
                 if (modalWinner.logElement.style.display !== 'block') {
                     modalWinner.logElement.style.display = 'block';
                 }
@@ -457,6 +460,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 modalWinner.logElement.scrollTop = modalWinner.logElement.scrollHeight;
             }
         }
+        
         
         if (!isGiveawayRunning || participants.has(msg.sender.username)) return;
         const userMessage = msg.content.trim().toLowerCase();
@@ -826,6 +830,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     const replaceAnimationBoxMode = drawnWinners.length > 3;
 
                     if (showChatLogsBelow) {
+
+                        chatLogEl.style.display = 'block';
+                        chatLogEl.classList.add('waiting');
+
                         chatLogEl.addEventListener('wheel', preventPageScroll);
                         chatLogEl.addEventListener('wheel', (e) => e.stopPropagation());
                         modalChatWinners.push({ name: winner.name.toLowerCase(), logElement: chatLogEl, mode: 'below' });
@@ -908,8 +916,10 @@ document.addEventListener('DOMContentLoaded', () => {
         let noisePool = uniquePool.filter(n => n !== finalWinner);
 
 
-        if (noisePool.length === 0) noisePool = ["User1", "User2", "User3"];
-        while (noisePool.length < 5) noisePool = noisePool.concat(noisePool); 
+        if (noisePool.length === 0) {
+             noisePool = [finalWinner]; 
+        }
+        while (noisePool.length < 10) noisePool = noisePool.concat(noisePool); 
         
 
         const cycles = Math.ceil(200 / noisePool.length);

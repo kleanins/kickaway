@@ -550,3 +550,40 @@ body::-webkit-scrollbar-thumb:hover {
 .winner-animation-box.fade-out {
     opacity: 0;
 }
+
+
+.modal-winner-chat-log.waiting {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    height: 2.5rem; 
+    overflow: hidden;
+}
+
+.modal-winner-chat-log.waiting::after {
+    content: '';
+    width: 5px; 
+    height: 5px;
+    border-radius: 50%;
+    
+    animation: typing-sequence 1.5s infinite ease-in-out;
+}
+
+@keyframes typing-sequence {
+
+    0%, 100% {
+        box-shadow: -12px 0 0 0 rgba(255, 255, 255, 1), 
+                    12px 0 0 0 rgba(255, 255, 255, 0.5);
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+    33% {
+        box-shadow: -12px 0 0 0 rgba(255, 255, 255, 0.5), 
+                    12px 0 0 0 rgba(255, 255, 255, 0.5);
+        background-color: rgba(255, 255, 255, 1);
+    }
+    66% {
+        box-shadow: -12px 0 0 0 rgba(255, 255, 255, 0.5), 
+                    12px 0 0 0 rgba(255, 255, 255, 1);
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+}
