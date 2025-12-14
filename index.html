@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Kickaway - Kick Giveaway Tool</title>
     <meta name="description" content="An open-source, client-side giveaway tool for Kick.com">
-    <!-- kickaway v5 -->
+    <!-- kickaway v7 -->
     <meta property="og:title" content="Kickaway - Kick Giveaway Tool">
     <meta property="og:description" content="An open-source, client-side giveaway tool for Kick.com">
     <meta property="og:image" content="https://www.kickaway.co/favicon.png">
@@ -55,44 +54,89 @@
                 <div class="main-content">
                     <div class="settings-panel">
                         <h2 data-lang-key="settingsTitle">Settings</h2>
-                        <label for="keyword-input" data-lang-key="keywordLabel">Keyword (optional):</label>
-                        <input type="text" id="keyword-input" placeholder="">
-
-                        <label for="winner-count-input" data-lang-key="winnerCountLabel">Number of Winners:</label>
-                        <input type="number" id="winner-count-input" value="1" min="1" max="10">
                         
-                        <div class="checkbox-wrapper">
-                             <label for="sub-only-checkbox">
-                                <input type="checkbox" id="sub-only-checkbox">
-                                <span data-lang-key="subOnlyLabel">Subscribers only</span>
-                            </label>
+                        <div class="settings-controls-container">
+                            
+                            
+                            <div class="settings-row">
+                                <div class="input-group width-66">
+                                    <label for="keyword-input" data-lang-key="keywordLabel">Keyword (optional):</label>
+                                    <input type="text" id="keyword-input" placeholder="">
+                                </div>
+                                <div class="input-group width-33">
+                                    <label for="winner-count-input" data-lang-key="winnerCountLabel">Winners:</label>
+                                    <input type="number" id="winner-count-input" value="1" min="1" max="10">
+                                </div>
+                            </div>
+
+                            
+                            <div class="input-group">
+                                <label for="follow-length-slider">
+                                    <span data-lang-key="followLengthLabel">Follow Length:</span>
+                                    
+                                    <span id="follow-length-value">0</span> <span data-lang-key="daysLabel">Days</span>
+                                    
+                                    <span class="info-tooltip" data-lang-key-title="followTooltip">!</span>
+                                </label>
+                                <input type="range" id="follow-length-slider" min="0" max="365" value="0">
+                            </div>
+
+                            
+                            <div class="input-group">
+                                <label for="sub-length-slider">
+                                    <span data-lang-key="subLengthLabel">Subscriber Length:</span>
+                                    <span id="sub-length-value">0</span> <span data-lang-key="monthsLabel">Months</span>
+                                </label>
+                                <input type="range" id="sub-length-slider" min="0" max="60" value="0">
+                            </div>
+
+                            
+                            <div class="input-group">
+                                <label for="sub-multiplier-slider">
+                                    <span data-lang-key="subMultiplierLabel">Subscriber Multiplier:</span>
+                                    <span id="sub-multiplier-value">1</span>x
+                                </label>
+                                <input type="range" id="sub-multiplier-slider" min="1" max="10" value="1">
+                            </div>
+
+                            
+                            <div class="checkbox-group">
+                                <div class="checkbox-wrapper">
+                                     <label for="sub-only-checkbox">
+                                        <input type="checkbox" id="sub-only-checkbox">
+                                        <span data-lang-key="subOnlyLabel">Subscribers only</span>
+                                    </label>
+                                </div>
+                                
+                                <div class="checkbox-wrapper">
+                                    <label for="winner-claim-checkbox">
+                                        <input type="checkbox" id="winner-claim-checkbox">
+                                        <span data-lang-key="winnerClaimLabel">Winner confirmation</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            
+                            <div class="settings-row">
+                                <div class="input-group width-50">
+                                    <label for="claim-duration-input" data-lang-key="claimDurationLabel">Confirm Time (s):</label>
+                                    <input type="number" id="claim-duration-input" value="30" min="10">
+                                </div>
+                                <div class="input-group width-50">
+                                    <label for="animation-select" data-lang-key="animationLabel">Animation:</label>
+                                    <select id="animation-select">
+                                        <option value="wheel" selected data-lang-key="animationWheel">Wheel</option>
+                                        <option value="slot-machine" data-lang-key="animationClassic">Classic</option>
+                                        <option value="char-scramble" data-lang-key="animationScramble">Scramble</option>                            
+                                    </select>
+                                </div>
+                            </div>
+                        </div> 
+                        
+                        <div class="start-section">
+                            <button id="start-giveaway-button" data-lang-key="startGiveawayButton">Start Giveaway</button>
+                            <p id="status-message" class="status-waiting" data-lang-key="statusWaiting">Press "Start" to connect to the chat.</p>
                         </div>
-
-                        <label for="sub-multiplier-slider">
-                            <span data-lang-key="subMultiplierLabel">Subscriber Multiplier:</span>
-                            <span id="sub-multiplier-value">1</span>x
-                        </label>
-                        <input type="range" id="sub-multiplier-slider" min="1" max="10" value="1">
-                        
-                        <div class="checkbox-wrapper">
-                            <label for="winner-claim-checkbox">
-                                <input type="checkbox" id="winner-claim-checkbox">
-                                <span data-lang-key="winnerClaimLabel">Winner confirmation (for single winner)</span>
-                            </label>
-                        </div>
-
-                        <label for="claim-duration-input" data-lang-key="claimDurationLabel">Confirmation Time (seconds):</label>
-                        <input type="number" id="claim-duration-input" value="30" min="10">
-
-                        <label for="animation-select" data-lang-key="animationLabel">Giveaway Animation:</label>
-                        <select id="animation-select">
-                            <option value="wheel" selected data-lang-key="animationWheel">Wheel</option>
-                            <option value="slot-machine" data-lang-key="animationClassic">Classic</option>
-                            <option value="char-scramble" data-lang-key="animationScramble">Character Scramble</option>                            
-                        </select>
-                        
-                        <button id="start-giveaway-button" data-lang-key="startGiveawayButton">Start Giveaway</button>
-                        <p id="status-message" class="status-waiting" data-lang-key="statusWaiting">Press "Start" to connect to the chat.</p>
                     </div>
 
                     <div class="giveaway-panel">

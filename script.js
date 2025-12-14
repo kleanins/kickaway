@@ -1,54 +1,52 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-
     const translations = {
         'tr': {
-            
             metaTitle: 'Kickaway - Kick Çekiliş Aracı',
             metaDescription: 'Kick.com için açık kaynaklı, istemci taraflı bir çekiliş aracı',
-            
             loginTitle: 'kickaway.co',
             loginPrompt: 'Çekiliş yapmak istediğin Kick kanalını giriniz',
             loginPlaceholder: 'Örn: xqc',
             connectButton: 'Bağlan',
             connecting: 'Bağlanılıyor…',
-            
             connectedTo: 'Bağlı Kanal:',
             settingsMenuAria: 'Ayarlar Menüsü',
             changeChannel: 'Kanal Değiştir',
             clearAllData: 'Tüm Veriyi Sil',
-            
             settingsTitle: 'Ayarlar',
             keywordLabel: 'Anahtar Kelime (opsiyonel):',
             winnerCountLabel: 'Kazanan Sayısı:',
             subOnlyLabel: 'Sadece aboneler katılsın',
             subMultiplierLabel: 'Abone Çarpanı:',
+            
+            followLengthLabel: 'Takip Süresi:',
+            subLengthLabel: 'Abonelik Süresi:',
+            daysLabel: 'Gün',
+            monthsLabel: 'Ay',
+            followTooltip: 'Deneysel Özellik: Çekilişin çekilmesi sırasında kazananın takip süresi kontrol edilir. Bu yüzden Katılımcılar listesinde çekilişi takip süresi sebebiyle teknik olarak kazanamayacak kullanıcıların görünmesi normaldir.',
+            
             winnerClaimLabel: 'Kazanan onayı (tekli kazananda)',
-            claimDurationLabel: 'Onay Süresi (saniye):',
-            animationLabel: 'Çekiliş Animasyonu:',
+            claimDurationLabel: 'Onay Süresi (sn):',
+            animationLabel: 'Animasyon:',
             animationWheel: 'Çark',
             animationClassic: 'Klasik',
             animationScramble: 'Karışık Harfler',
             startGiveawayButton: 'Çekilişi Başlat',
-            
             statusWaiting: 'Sohbete bağlanmak için "Başlat" butonuna bas.',
             statusConnected: (keyword) => keyword === '' ? 'Sohbete bağlanıldı! Katılımlar başladı!' : `Sohbete bağlanıldı! "${keyword}" bekleniyor.`,
             statusConnectionLost: 'Bağlantı koptu!',
             participantsTitle: 'Katılımcılar',
             drawButton: 'Çekilişi Çek',
             resetButton: 'Sıfırla',
-            
             winnersTitle: 'Kazananlar',
-            
             claimTitle: 'Onay Bekleniyor:',
             claimCountdownText: (name, time) => `${name}, onayın için ${time} saniyen var...`,
             claimConfirmed: 'Onaylandı!',
             claimFailed: 'Süre Doldu!',
             okButton: 'Tamam',
-            
             modalDrawing: 'Çekiliyor...',
+            modalChecking: 'Adaylar Kontrol Ediliyor:',
             modalWinnerTitle: 'Kazanan:',
-            
             alertEnterChannel: 'Lütfen bir kanal adı girin.',
             alertLoginError: (msg) => `Giriş hatası: ${msg}`,
             alertChannelNotFound: 'Kanal bulunamadı veya API hatası.',
@@ -60,56 +58,54 @@ document.addEventListener('DOMContentLoaded', () => {
             footerDisclaimer2: "Kullanımından doğabilecek herhangi bir sonuç tamamen kullanıcının sorumluluğundadır.",
             footerDisclaimer3: "Kickaway tamamen istemci taraflı çalışır; çekiliş verileri yalnızca tarayıcınızın yerel depolama alanında tutulur.",
             footerDisclaimer4: "Bu site anonim istatistikler toplar.",
-            
             subscriberTitle: (count) => `Abone (${count} Hak)`,
         },
         'en': {
-            
             metaTitle: 'Kickaway - Kick Giveaway Tool',
             metaDescription: 'An open-source, client-side giveaway tool for Kick.com',
-            
             loginTitle: 'kickaway.co',
             loginPrompt: 'Enter the Kick channel for the giveaway',
             loginPlaceholder: 'E.g., xqc',
             connectButton: 'Connect',
             connecting: 'Connecting…',
-            
             connectedTo: 'Connected to:',
             settingsMenuAria: 'Settings Menu',
             changeChannel: 'Change Channel',
             clearAllData: 'Clear All Data',
-            
             settingsTitle: 'Settings',
             keywordLabel: 'Keyword (optional):',
             winnerCountLabel: 'Number of Winners:',
             subOnlyLabel: 'Subscribers only',
             subMultiplierLabel: 'Subscriber Multiplier:',
+            
+            followLengthLabel: 'Follow Length:',
+            subLengthLabel: 'Subscriber Length:',
+            daysLabel: 'Days',
+            monthsLabel: 'Months',
+            followTooltip: 'Experimental feature, during the draw the winner\'s follow duration is checked. Because of this, it is normal for users who technically cannot win due to follow duration to appear in the participants list.',
+            
             winnerClaimLabel: 'Winner confirmation (for single winner)',
-            claimDurationLabel: 'Confirmation Time (seconds):',
-            animationLabel: 'Giveaway Animation:',
+            claimDurationLabel: 'Confirm Time (s):',
+            animationLabel: 'Animation:',
             animationWheel: 'Wheel',
             animationClassic: 'Classic',
             animationScramble: 'Character Scramble',
             startGiveawayButton: 'Start Giveaway',
-            
             statusWaiting: 'Press "Start" to connect to the chat.',
             statusConnected: (keyword) => keyword === '' ? 'Connected to chat! Entries are open!' : `Connected to chat! Waiting for "${keyword}".`,
             statusConnectionLost: 'Connection lost!',
             participantsTitle: 'Participants',
             drawButton: 'Draw Winner',
             resetButton: 'Reset',
-            
             winnersTitle: 'Winners',
-            
             claimTitle: 'Awaiting Confirmation:',
             claimCountdownText: (name, time) => `${name}, you have ${time} seconds to confirm...`,
             claimConfirmed: 'Confirmed!',
             claimFailed: 'Time is up!',
             okButton: 'OK',
-            
             modalDrawing: 'Drawing...',
+            modalChecking: 'Checking Candidates:',
             modalWinnerTitle: 'Winner:',
-            
             alertEnterChannel: 'Please enter a channel name.',
             alertLoginError: (msg) => `Login error: ${msg}`,
             alertChannelNotFound: 'Channel not found or API error.',
@@ -121,7 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
             footerDisclaimer2: "Any consequences arising from its use are the sole responsibility of the user.",
             footerDisclaimer3: "Kickaway works entirely client-side; giveaway data lives only in your browser’s local storage.",
             footerDisclaimer4: "This site collects anonymous statistics.",
-            
             subscriberTitle: (count) => `Subscriber (${count}x Entries)`,
         }
     };
@@ -136,14 +131,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.documentElement.lang = lang;
 
-        
         document.querySelectorAll('[data-lang-key]').forEach(el => {
             const key = el.getAttribute('data-lang-key');
             if (translations[lang][key]) {
                 el.textContent = translations[lang][key];
             }
         });
-        
         
         document.querySelectorAll('[data-lang-key-placeholder]').forEach(el => {
             const key = el.getAttribute('data-lang-key-placeholder');
@@ -152,7 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         
-        
         document.querySelectorAll('[data-lang-key-aria-label]').forEach(el => {
             const key = el.getAttribute('data-lang-key-aria-label');
             if (translations[lang][key]) {
@@ -160,18 +152,24 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        
+        document.querySelectorAll('[data-lang-key-title]').forEach(el => {
+            const key = el.getAttribute('data-lang-key-title');
+            if (translations[lang][key]) {
+
+                el.setAttribute('data-title', translations[lang][key]); 
+                el.removeAttribute('title'); 
+            }
+        });
+
         document.title = translations[lang].metaTitle;
         document.querySelector('meta[name="description"]').setAttribute('content', translations[lang].metaDescription);
         document.querySelector('meta[property="og:title"]').setAttribute('content', translations[lang].metaTitle);
         document.querySelector('meta[property="og:description"]').setAttribute('content', translations[lang].metaDescription);
         
-        
         if(languageSwitcher.querySelector('#lang-tr-button')) {
             languageSwitcher.querySelector('#lang-tr-button').classList.toggle('active-lang', lang === 'tr');
             languageSwitcher.querySelector('#lang-en-button').classList.toggle('active-lang', lang === 'en');
         }
-
         
         if (isGiveawayRunning) {
              const modeText = translations[currentLang].statusConnected(giveawayKeyword);
@@ -182,8 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateWinnersListUI();
     }
     
-    
-
     const loginScreen = document.getElementById('login-screen'),
           mainScreen  = document.getElementById('main-screen'),
           channelInput = document.getElementById('channel-input'),
@@ -208,6 +204,12 @@ document.addEventListener('DOMContentLoaded', () => {
           startGiveawayButton  = document.getElementById('start-giveaway-button'),
           statusMessage        = document.getElementById('status-message');
 
+    
+    const followLengthSlider = document.getElementById('follow-length-slider'),
+          followLengthValue  = document.getElementById('follow-length-value'),
+          subLengthSlider    = document.getElementById('sub-length-slider'),
+          subLengthValue     = document.getElementById('sub-length-value');
+
     const participantCount     = document.getElementById('participant-count'),
           participantList      = document.getElementById('participant-list'),
           drawButton           = document.getElementById('draw-button'),
@@ -225,10 +227,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalTemplate = document.getElementById('modal-template');
     const multiWinnerModalContainer = document.getElementById('multi-winner-modal-container');
 
-    let kickChannelName = '', kickChatroomId  = null, ws = null;
+    let kickChannelName = '', kickChannelSlug = '', kickChatroomId  = null, channelCreationDate = null, ws = null;
     let giveawayKeyword = '', isGiveawayRunning = false, isDrawInProgress = false;
     let participants   = new Set(), allEntries = [], winners = [];
     let modalChatWinners = [], claimInterval = null, lastClaimWinner = null;
+    let pendingAnimationInterval = null; 
 
     function showScreen(scr) {
         loginScreen.style.display = 'none';
@@ -240,6 +243,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function setSettingsState(disabled) {
         settingsPanel.querySelectorAll('input:not([type="checkbox"]), select, button#start-giveaway-button').forEach(el => el.disabled = disabled);
         subOnlyCheckbox.disabled = disabled;
+        
+        const rangeInputs = settingsPanel.querySelectorAll('input[type="range"]');
+        rangeInputs.forEach(input => input.disabled = disabled);
+
         if (disabled) {
             winnerClaimCheckbox.disabled = true;
             claimDurationInput.disabled = true;
@@ -268,6 +275,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 winnerCount: winnerCountInput.value,
                 subOnly: subOnlyCheckbox.checked,
                 subMultiplier: subMultiplierSlider.value,
+                followLength: followLengthSlider.value, 
+                subLength: subLengthSlider.value,       
                 winnerClaim: winnerClaimCheckbox.checked,
                 claimDuration: claimDurationInput.value,
                 animation: animationSelect.value,
@@ -289,6 +298,12 @@ document.addEventListener('DOMContentLoaded', () => {
             subOnlyCheckbox.checked = settings.subOnly || false;
             subMultiplierSlider.value = settings.subMultiplier || '1';
             subMultiplierValue.textContent = settings.subMultiplier || '1';
+            
+            followLengthSlider.value = settings.followLength || '0';
+            followLengthValue.textContent = settings.followLength || '0';
+            subLengthSlider.value = settings.subLength || '0';
+            subLengthValue.textContent = settings.subLength || '0';
+
             winnerClaimCheckbox.checked = settings.winnerClaim || false;
             claimDurationInput.value = settings.claimDuration || '30';
             animationSelect.value = settings.animation || 'wheel';
@@ -296,6 +311,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             keywordInput.value = ''; winnerCountInput.value = '1'; subOnlyCheckbox.checked = false;
             subMultiplierSlider.value = '1'; subMultiplierValue.textContent = '1';
+            followLengthSlider.value = '0'; followLengthValue.textContent = '0';
+            subLengthSlider.value = '0'; subLengthValue.textContent = '0';
             winnerClaimCheckbox.checked = false; claimDurationInput.value = '30';
             animationSelect.value = 'wheel'; 
             winners = [];
@@ -314,11 +331,32 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!channelName) { alert(translations[currentLang].alertEnterChannel); return; }
         connectButton.disabled = true; connectButton.textContent = translations[currentLang].connecting;
         try {
-            const r = await fetch(`https://kick.com/api/v1/channels/${channelName}`);
+            const r = await fetch(`https://kick.com/api/v2/channels/${channelName}`);
             if (!r.ok) throw new Error(translations[currentLang].alertChannelNotFound);
             const data = await r.json();
             if (!data.chatroom?.id) throw new Error(translations[currentLang].alertChatroomIDError);
-            kickChannelName = channelName; kickChatroomId = data.chatroom.id;
+            
+            kickChannelName = data.slug;
+            kickChannelSlug = data.slug;
+            kickChatroomId = data.chatroom.id;
+
+            let startDate = new Date();
+            if (data.user && data.user.email_verified_at) {
+                startDate = new Date(data.user.email_verified_at);
+            } else if (data.created_at) {
+                startDate = new Date(data.created_at);
+            }
+
+            const now = new Date();
+            const diffTime = Math.abs(now - startDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+            
+            followLengthSlider.max = diffDays;
+            if (parseInt(followLengthSlider.value) > diffDays) {
+                followLengthSlider.value = diffDays;
+                followLengthValue.textContent = diffDays;
+            }
+
             localStorage.setItem('kickGiveawayLastChannel', kickChannelName);
             connectedChannelName.textContent = kickChannelName;
             loadStateForChannel(kickChannelName);
@@ -428,14 +466,21 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function addParticipant(sender) {
         const existingLi = [...participantList.children].find(li => li.textContent === sender.username);
-        if (existingLi) {
-            return; 
-        }
+        if (existingLi) return;
 
-        const isSub = (sender.identity?.badges || [])
-            .some(b => b.type === 'subscriber' || b.type === 'founder');
-        if (subOnlyCheckbox.checked && !isSub) return;
         
+        const subBadge = (sender.identity?.badges || []).find(b => b.type === 'subscriber' || b.type === 'founder');
+        const isSub = !!subBadge;
+        
+        
+        if (subOnlyCheckbox.checked && !isSub) return;
+
+        
+        const minSubMonths = parseInt(subLengthSlider.value) || 0;
+        const userSubMonths = subBadge ? (subBadge.count || 0) : 0; 
+        
+        if (minSubMonths > 0 && userSubMonths < minSubMonths) return; 
+
         participants.add(sender.username);
         const entryCount = isSub ? parseInt(subMultiplierSlider.value) : 1;
         for (let i = 0; i < entryCount; i++) allEntries.push(sender.username);
@@ -450,7 +495,131 @@ document.addEventListener('DOMContentLoaded', () => {
         participantCount.textContent = participants.size;
         updateDrawButtonState();
     }
+
     
+    async function checkFollowAge(channelSlug, username, minDays) {
+        if (minDays <= 0) return true; 
+        try {
+            const r = await fetch(`https://kick.com/api/v2/channels/${channelSlug}/users/${username}`);
+            if (!r.ok) return false; 
+            const data = await r.json();
+            
+            if (!data.following_since) return false; 
+            
+            const followDate = new Date(data.following_since);
+            const now = new Date();
+            const diffTime = Math.abs(now - followDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            return diffDays >= minDays;
+        } catch (e) {
+            console.error("Follow check failed", e);
+            return true; 
+        }
+    }
+
+    
+    
+    function startPendingAnimation(requestedCount) {
+        document.body.classList.add('modal-active');
+        multiWinnerModalContainer.style.display = 'flex';
+        multiWinnerModalContainer.innerHTML = ''; 
+
+        const count = requestedCount;
+        const topRowCount = (count <= 3) ? count : Math.ceil(count / 2);
+
+        
+        let row1, row2;
+        row1 = document.createElement('div');
+        row1.className = 'modal-row';
+        multiWinnerModalContainer.appendChild(row1);
+
+        if (count > 3) {
+            row2 = document.createElement('div');
+            row2.className = 'modal-row';
+            multiWinnerModalContainer.appendChild(row2);
+        }
+
+        const selectedAnim = animationSelect.value;
+        if (pendingAnimationInterval) clearInterval(pendingAnimationInterval);
+
+        
+        const animationBoxes = [];
+
+        
+        for (let i = 0; i < count; i++) {
+            const modalInstance = modalTemplate.firstElementChild.cloneNode(true);
+            if (i < topRowCount) row1.appendChild(modalInstance);
+            else row2.appendChild(modalInstance);
+
+            const content = modalInstance.querySelector('.modal-content');
+            const titleEl = content.querySelector('.winner-title-text');
+            titleEl.textContent = translations[currentLang].modalDrawing;
+            const animationBox = content.querySelector('.winner-animation-box');
+            
+            
+            const btn = content.querySelector('.modal-confirm-button');
+            btn.style.visibility = 'hidden';
+
+            animationBoxes.push(animationBox); 
+
+            
+            if (selectedAnim === 'wheel') {
+                animationBox.innerHTML = `<div class="wheel-animation-container"><ul class="wheel-list" style="transform: none; transition: none;"></ul></div>`;
+                const ul = animationBox.querySelector('ul');
+                ul.style.animation = "infiniteSpin 0.15s linear infinite"; 
+                
+                populateWheelList(ul);
+            } else if (selectedAnim === 'char-scramble') {
+                animationBox.innerHTML = '<h1 class="winner-name"></h1>';
+            } else {
+                
+                animationBox.innerHTML = '<h1 class="winner-name"></h1>';
+            }
+        }
+
+        
+        
+        let pendingPool = allEntries.length > 0 ? allEntries : ["Wait...", "Loading...", "Drawing..."];
+        while(pendingPool.length < 50) pendingPool = pendingPool.concat(pendingPool); 
+
+        pendingAnimationInterval = setInterval(() => {
+            animationBoxes.forEach(box => {
+                if (selectedAnim === 'wheel') {
+                    
+                    
+                    
+                } else if (selectedAnim === 'char-scramble') {
+                    const el = box.querySelector('h1');
+                    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?*&%';
+                    let output = '';
+                    for(let i=0; i<10; i++) output += chars[Math.floor(Math.random() * chars.length)];
+                    el.textContent = output;
+                } else {
+                    
+                    const el = box.querySelector('h1');
+                    el.textContent = pendingPool[Math.floor(Math.random() * pendingPool.length)];
+                }
+            });
+        }, 60); 
+    }
+
+    function populateWheelList(ul) {
+        let pendingPool = allEntries.length > 0 ? allEntries : ["Wait...", "Loading..."];
+        
+        for(let i=0; i<50; i++) {
+            const li = document.createElement('li');
+            li.textContent = pendingPool[i % pendingPool.length];
+            ul.appendChild(li);
+        }
+    }
+
+    function stopPendingAnimation() {
+        if (pendingAnimationInterval) {
+            clearInterval(pendingAnimationInterval);
+            pendingAnimationInterval = null;
+        }
+    }
 
     async function drawWinner() {
         isDrawInProgress = true;
@@ -460,25 +629,67 @@ document.addEventListener('DOMContentLoaded', () => {
         const requestedWinnerCount = parseInt(winnerCountInput.value) || 1;
         const useClaimFeature = winnerClaimCheckbox.checked && requestedWinnerCount === 1;
 
-        const drawPool = [...allEntries];
-        const uniqueParticipantCount = new Set(drawPool).size;
-        const finalWinnerCount = Math.min(requestedWinnerCount, uniqueParticipantCount);
-
-        if (finalWinnerCount === 0) {
+        
+        let drawPool = [...allEntries];
+        let potentialWinnersLeft = [...new Set(drawPool)].length;
+        
+        if (potentialWinnersLeft === 0) {
             alert(translations[currentLang].alertNoParticipants);
             finishDrawCycle();
             return;
         }
+        
+        
+        const finalCountToDraw = Math.min(requestedWinnerCount, potentialWinnersLeft);
 
         const winnersToDraw = [];
-        let tempDrawPool = [...drawPool];
-        for (let i = 0; i < finalWinnerCount; i++) {
-            const winnerIndex = Math.floor(Math.random() * tempDrawPool.length);
-            const winnerName  = tempDrawPool[winnerIndex];
-            tempDrawPool = tempDrawPool.filter(n => n !== winnerName);
-            const winnerData = { name: winnerName, timestamp: new Date().toISOString(), confirmed: !useClaimFeature };
-            winnersToDraw.push(winnerData);
+        const minFollowDays = parseInt(followLengthSlider.value) || 0;
+
+        
+        
+        startPendingAnimation(finalCountToDraw);
+
+        
+        while (winnersToDraw.length < finalCountToDraw && potentialWinnersLeft > 0) {
+            
+            const winnerIndex = Math.floor(Math.random() * drawPool.length);
+            const candidateName = drawPool[winnerIndex];
+            
+            
+            let isValid = true;
+            if (minFollowDays > 0) {
+                isValid = await checkFollowAge(kickChannelSlug, candidateName, minFollowDays);
+                
+                await new Promise(r => setTimeout(r, 200)); 
+            }
+
+            if (isValid) {
+                
+                const winnerData = { name: candidateName, timestamp: new Date().toISOString(), confirmed: !useClaimFeature };
+                winnersToDraw.push(winnerData);
+                
+                
+                drawPool = drawPool.filter(n => n !== candidateName);
+                potentialWinnersLeft = [...new Set(drawPool)].length;
+            } else {
+                
+                drawPool = drawPool.filter(n => n !== candidateName);
+                potentialWinnersLeft = [...new Set(drawPool)].length;
+            }
         }
+        
+        
+        stopPendingAnimation();
+
+        
+        if (winnersToDraw.length === 0) {
+             document.body.classList.remove('modal-active');
+             multiWinnerModalContainer.style.display = 'none';
+             alert(translations[currentLang].alertNoParticipants + " (Filters too strict?)");
+             finishDrawCycle();
+             return;
+        }
+
         
         winners.push(...winnersToDraw);
         winnersToDraw.forEach(w => {
@@ -488,7 +699,8 @@ document.addEventListener('DOMContentLoaded', () => {
         updateDrawButtonState();          
         updateWinnersListUI();
         
-        await displayMultiWinnerModals(winnersToDraw, drawPool, useClaimFeature);
+        
+        await displayMultiWinnerModals(winnersToDraw, allEntries.concat(winnersToDraw.map(w=>w.name)), useClaimFeature);
         
         if (useClaimFeature) {
             lastClaimWinner = winnersToDraw[0];
@@ -497,44 +709,70 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function displayMultiWinnerModals(drawnWinners, fullPool, useClaimFeature) {
         return new Promise(resolve => {
-            document.body.classList.add('modal-active');
-            multiWinnerModalContainer.innerHTML = '';
             multiWinnerModalContainer.style.display = 'flex';
             
-            const showChatLogsBelow = drawnWinners.length <= 3;
-            const replaceAnimationBoxMode = drawnWinners.length > 3;
-            const count = drawnWinners.length;
-            const topRowCount = (count <= 3) ? count : Math.ceil(count / 2);
+            
+            
+            
+            
 
-            const row1 = document.createElement('div');
-            row1.className = 'modal-row';
-            multiWinnerModalContainer.appendChild(row1);
+            const existingInstances = multiWinnerModalContainer.querySelectorAll('.modal-instance');
+            const canReuse = existingInstances.length === drawnWinners.length;
 
-            let row2;
-            if (count > 3) {
-                row2 = document.createElement('div');
-                row2.className = 'modal-row';
-                multiWinnerModalContainer.appendChild(row2);
+            if (!canReuse) {
+                
+                multiWinnerModalContainer.innerHTML = '';
+            }
+            
+            
+            let row1, row2;
+            if (!canReuse) {
+                const count = drawnWinners.length;
+                const topRowCount = (count <= 3) ? count : Math.ceil(count / 2);
+                row1 = document.createElement('div');
+                row1.className = 'modal-row';
+                multiWinnerModalContainer.appendChild(row1);
+                if (count > 3) {
+                    row2 = document.createElement('div');
+                    row2.className = 'modal-row';
+                    multiWinnerModalContainer.appendChild(row2);
+                }
+            } else {
+                 
             }
             
             const animationPromises = drawnWinners.map((winner, index) => {
-                const modalWrapper = modalTemplate.firstElementChild.cloneNode(true);
-                const titleEl = modalWrapper.querySelector('.winner-title-text');
-                titleEl.textContent = translations[currentLang].modalDrawing;
-                const animationBoxEl = modalWrapper.querySelector('.winner-animation-box');
-                const confirmButton = modalWrapper.querySelector('.modal-confirm-button');
-                confirmButton.textContent = translations[currentLang].okButton;
-                const chatLogEl = modalWrapper.querySelector('.modal-winner-chat-log');
+                let modalWrapper;
 
-                if (index < topRowCount) {
-                    row1.appendChild(modalWrapper);
+                if (canReuse) {
+                    modalWrapper = existingInstances[index];
                 } else {
-                    row2.appendChild(modalWrapper);
+                    const count = drawnWinners.length;
+                    const topRowCount = (count <= 3) ? count : Math.ceil(count / 2);
+                    modalWrapper = modalTemplate.firstElementChild.cloneNode(true);
+                    if (index < topRowCount) row1.appendChild(modalWrapper);
+                    else row2.appendChild(modalWrapper);
                 }
 
-                confirmButton.addEventListener('click', () => {
+                const titleEl = modalWrapper.querySelector('.winner-title-text');
+                const animationBoxEl = modalWrapper.querySelector('.winner-animation-box');
+                const confirmButton = modalWrapper.querySelector('.modal-confirm-button');
+                const chatLogEl = modalWrapper.querySelector('.modal-winner-chat-log');
+                
+                
+                confirmButton.textContent = translations[currentLang].okButton;
+                confirmButton.style.visibility = 'hidden'; 
+
+                
+                const newBtn = confirmButton.cloneNode(true);
+                confirmButton.parentNode.replaceChild(newBtn, confirmButton);
+                
+                newBtn.addEventListener('click', () => {
                     modalWrapper.classList.add('is-hidden');
                     
+                    const showChatLogsBelow = drawnWinners.length <= 3;
+                    const replaceAnimationBoxMode = drawnWinners.length > 3;
+
                     if (showChatLogsBelow || replaceAnimationBoxMode) {
                         modalChatWinners = modalChatWinners.filter(w => w.name !== winner.name.toLowerCase());
                     }
@@ -546,7 +784,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 modalWrapper.addEventListener('transitionend', (event) => {
                     if (event.propertyName === 'opacity' && modalWrapper.classList.contains('is-hidden')) {
-                        if ([...row1.children, ...(row2 ? row2.children : [])].every(m => m.classList.contains('is-hidden'))) {
+                        const allInstances = multiWinnerModalContainer.querySelectorAll('.modal-instance');
+                        const allHidden = [...allInstances].every(m => m.classList.contains('is-hidden'));
+                        
+                        if (allHidden) {
                             multiWinnerModalContainer.style.display = 'none';
                             document.body.classList.remove('modal-active');
                             
@@ -557,9 +798,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
 
+                
                 return runDrawAnimation(fullPool, winner.name, animationBoxEl).then(() => {
                     titleEl.textContent = translations[currentLang].modalWinnerTitle;
-                    confirmButton.style.visibility = 'visible';
+                    newBtn.style.visibility = 'visible';
+
+                    const showChatLogsBelow = drawnWinners.length <= 3;
+                    const replaceAnimationBoxMode = drawnWinners.length > 3;
 
                     if (showChatLogsBelow) {
                         chatLogEl.addEventListener('wheel', preventPageScroll);
@@ -593,16 +838,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function animateSlotMachine(pool, finalWinner, animationBoxEl, resolve) {
-        animationBoxEl.innerHTML = '<h1 class="winner-name winner"></h1>';
+        
+        
+        
+        animationBoxEl.innerHTML = '<h1 class="winner-name"></h1>'; 
         const winnerNameEl = animationBoxEl.querySelector('.winner-name');
         const localInterval = setInterval(() => {
             winnerNameEl.textContent = pool.length > 0 ? pool[Math.floor(Math.random() * pool.length)] : '...';
         }, 75);
-        setTimeout(() => { clearInterval(localInterval); winnerNameEl.textContent = finalWinner; resolve(); }, 3500);
+        setTimeout(() => { 
+            clearInterval(localInterval); 
+            winnerNameEl.textContent = finalWinner; 
+            winnerNameEl.classList.add('winner'); 
+            resolve(); 
+        }, 3500);
     }
 
     function animateCharScramble(pool, finalWinner, animationBoxEl, resolve) {
-        animationBoxEl.innerHTML = '<h1 class="winner-name winner"></h1>';
+        animationBoxEl.innerHTML = '<h1 class="winner-name"></h1>'; 
         const winnerNameEl = animationBoxEl.querySelector('.winner-name');
         const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?*&%';
         let frame = 0; const totalFrames = 150;
@@ -615,7 +868,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 output += (Math.random() < progress) ? from : to;
             }
             winnerNameEl.textContent = output;
-            if (completed) { clearInterval(localInterval); resolve(); }
+            if (completed) { 
+                clearInterval(localInterval); 
+                winnerNameEl.classList.add('winner'); 
+                resolve(); 
+            }
             frame++;
         }, 40);
     }
@@ -626,9 +883,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const wheelList = animationBoxEl.querySelector('.wheel-list');
         
         let uniquePool = [...new Set(pool)];
-        if (uniquePool.length === 0) uniquePool.push(finalWinner);
+        
+        if (uniquePool.length === 0) uniquePool = [finalWinner, "User1", "User2", "User3"]; 
+        if (uniquePool.length === 1 && uniquePool[0] === finalWinner) {
+             uniquePool.push("...", "...", "...");
+        }
+        
         
         for (let i = uniquePool.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[uniquePool[i], uniquePool[j]] = [uniquePool[j], uniquePool[i]]; }
+        
         const cycles = Math.ceil(200 / uniquePool.length);
         let repeatedPool = [];
         for (let c = 0; c < cycles; c++) {
@@ -639,21 +902,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             repeatedPool.push(...shuffled);
         }
+        
+        
         const targetIndex = repeatedPool.length - Math.floor(uniquePool.length / 2) - 1;
-        const winnerIsInPool = repeatedPool.includes(finalWinner);
-        if (!winnerIsInPool) {
-            repeatedPool[targetIndex] = finalWinner;
-        } else {
-            const currentIndex = repeatedPool.indexOf(finalWinner);
-            [repeatedPool[currentIndex], repeatedPool[targetIndex]] = [repeatedPool[targetIndex], repeatedPool[currentIndex]];
-        }
-        repeatedPool = repeatedPool.filter((name, idx) => idx === targetIndex || name !== finalWinner);
-        const newWinnerIndex = repeatedPool.indexOf(finalWinner);
+        repeatedPool[targetIndex] = finalWinner;
         
         repeatedPool.forEach((name, index) => {
             const li = document.createElement('li');
             li.textContent = name;
-            if (index === newWinnerIndex) li.classList.add('winner');
+            if (index === targetIndex) li.classList.add('winner');
             wheelList.appendChild(li);
         });
 
@@ -662,7 +919,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const itemStyle = window.getComputedStyle(wheelList.querySelector('li'));
             const containerHeight = parseFloat(containerStyle.height);
             const itemHeight = parseFloat(itemStyle.height);
-            const finalY = (containerHeight / 2) - (newWinnerIndex * itemHeight) - (itemHeight / 2);
+            const finalY = (containerHeight / 2) - (targetIndex * itemHeight) - (itemHeight / 2);
             wheelList.style.transform = `translateY(${finalY}px)`;
         }, 100);
 
@@ -773,7 +1030,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function init() {
-        
         const savedLang = localStorage.getItem('kickawayLang');
         const browserLang = navigator.language.split('-')[0];
         const initialLang = savedLang || (browserLang === 'tr' ? 'tr' : 'en');
@@ -794,19 +1050,26 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('click', (e) => { if (!headerMenuContainer.contains(e.target)) headerMenuDropdown.classList.remove('active'); });
         changeChannelButton.addEventListener('click', () => { if (confirm(translations[currentLang].confirmChangeChannel)) { showScreen('login'); resetSession(); } });
         clearAllDataButton.addEventListener('click', () => { if (confirm(translations[currentLang].confirmClearAllData)) { localStorage.removeItem('kickGiveawayDB'); window.location.reload(); } });
+        
         winnerCountInput.addEventListener('input', () => {
             let value = parseInt(winnerCountInput.value);
             if (isNaN(value) || value < 1) winnerCountInput.value = 1;
             if (value > 10) winnerCountInput.value = 10;
             updateClaimSettingsState();
         });
+        
         winnerClaimCheckbox.addEventListener('change', updateClaimSettingsState);
         startGiveawayButton.addEventListener('click', startGiveaway);
         drawButton.addEventListener('click', drawWinner);
         resetButton.addEventListener('click', resetSession);
         claimConfirmButton.addEventListener('click', finishDrawCycle);
         settingsPanel.addEventListener('change', saveState);
+        
+        
         subMultiplierSlider.addEventListener('input', (e) => { subMultiplierValue.textContent = e.target.value; saveState(); });
+        followLengthSlider.addEventListener('input', (e) => { followLengthValue.textContent = e.target.value; saveState(); });
+        subLengthSlider.addEventListener('input', (e) => { subLengthValue.textContent = e.target.value; saveState(); });
+
         updateClaimSettingsState();
 
         const scrollableElements = document.querySelectorAll(
