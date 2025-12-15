@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             subLengthLabel: 'Abonelik Süresi:',
             daysLabel: 'Gün',
             monthsLabel: 'Ay',
-            followTooltip: 'Deneysel Özellik: Çekilişin çekilmesi sırasında kazananın takip süresi kontrol edilir. Bu yüzden Katılımcılar listesinde çekilişi takip süresi sebebiyle teknik olarak kazanamayacak kullanıcıların görünmesi normaldir.',
+            followTooltip: 'Deneysel Özellik: Kazananın takip süresi çekilişin çekilmesi sırasında kontrol edilir. Bu yüzden Katılımcılar listesinde çekilişi takip süresi sebebiyle teknik olarak kazanamayacak kullanıcıların görünmesi normaldir.',
             
             winnerClaimLabel: 'Kazanan onayı (tekli kazananda)',
             claimDurationLabel: 'Onay Süresi (sn):',
