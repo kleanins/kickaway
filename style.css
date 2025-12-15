@@ -219,53 +219,56 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 1.25
     background: rgba(83, 252, 24, 0.1);
 }
 
-.info-tooltip:hover::after {
-    content: attr(data-title); 
+
+.info-tooltip::after,
+.info-tooltip::before {
+    opacity: 0;
+    visibility: hidden;
     position: absolute;
-    bottom: 130%; 
     left: 50%;
     transform: translateX(-50%);
-    
+    z-index: 100;
+    pointer-events: none;
+    transition: all 0.2s ease 0.3s;
+}
+
+.info-tooltip::after {
+    content: attr(data-title);
+    bottom: 130%;
     background-color: #222;
     color: #fff;
     border: 1px solid var(--border-color);
-    padding: 0.5rem 0.8rem;
+    padding: 0.4rem 0.5rem;
     border-radius: 0.4rem;
-    font-size: 0.75rem;
-    font-weight: 400;
-    white-space: normal; 
-    width: 200px; 
+    font-size: 0.80rem;
+    font-weight: 200;
+    white-space: normal;
+    width: 300px;
     text-align: center;
     box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    z-index: 100;
-    pointer-events: none;
-    opacity: 0;
-    animation: fadeInTooltip 0.2s forwards;
 }
 
-
-.info-tooltip:hover::before {
+.info-tooltip::before {
     content: '';
-    position: absolute;
     bottom: 80%;
-    left: 50%;
-    transform: translateX(-50%);
     border-width: 6px;
     border-style: solid;
     border-color: #222 transparent transparent transparent;
-    z-index: 100;
-    opacity: 0;
-    animation: fadeInTooltip 0.2s forwards;
 }
 
-@keyframes fadeInTooltip {
-    to { opacity: 1; bottom: 135%; }
+
+.info-tooltip:hover::after {
+    opacity: 1;
+    visibility: visible;
+    bottom: 135%;
+    transition-delay: 0s; 
 }
+
 .info-tooltip:hover::before {
-    animation: fadeInArrow 0.2s forwards;
-}
-@keyframes fadeInArrow {
-    to { opacity: 1; bottom: 85%; }
+    opacity: 1;
+    visibility: visible;
+    bottom: 85%;
+    transition-delay: 0s; 
 }
 
 
