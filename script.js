@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
             subLengthLabel: 'Subscriber Length:',
             daysLabel: 'Days',
             monthsLabel: 'Months',
-            followTooltip: 'Experimental feature, during the draw the winner\'s follow duration is checked. Because of this, it is normal for users who technically cannot win due to follow duration to appear in the participants list.',
+            followTooltip: 'Experimental feature, the winner\'s follow duration is checked during the draw. Because of this, it is normal for users who technically cannot win due to follow duration to appear in the participants list.',
             
             winnerClaimLabel: 'Winner confirmation (for single winner)',
             claimDurationLabel: 'Confirm Time (s):',
