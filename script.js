@@ -79,8 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
             subOnlyLabel: 'Subscribers only',
             subMultiplierLabel: 'Subscriber Multiplier:',
             
-            followLengthLabel: 'Follow Length:',
-            subLengthLabel: 'Subscriber Length:',
+            followLengthLabel: 'Follow Duration:',
+            subLengthLabel: 'Subscription Duration:',
             daysLabel: 'Days',
             monthsLabel: 'Months',
             followTooltip: 'Experimental feature, the winner\'s follow duration is checked during the draw. Because of this, it is normal for users who technically cannot win due to follow duration to appear in the participants list.',
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alertChannelNotFound: 'Channel not found or API error.',
             alertChatroomIDError: 'Could not get Chatroom ID.',
             alertNoParticipants: 'There are no participants in the giveaway!',
-            alertApi: 'Error while checking Follow Length!',
+            alertApi: 'Error while checking Follow Duration!',
             confirmChangeChannel: 'You will be returned to the channel selection screen. Are you sure?',
             confirmClearAllData: 'WARNING! All settings and winner lists for all channels will be permanently deleted. Are you sure?',
             footerDisclaimer1: "This tool was created by an independent developer and has no official affiliation with Kick.com",
@@ -708,7 +708,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (winnersToDraw.length === 0) {
              document.body.classList.remove('modal-active');
              multiWinnerModalContainer.style.display = 'none';
-             alert(translations[currentLang].alertNoParticipants + " (Follow Length too strict?)");
+             alert(translations[currentLang].alertNoParticipants + " (Follow Duration too strict?)");
              finishDrawCycle();
              return;
         }
