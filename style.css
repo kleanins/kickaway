@@ -312,8 +312,8 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 1.25
 @keyframes fadeIn { from { opacity: 0; transform: translateY(-0.625rem); } to { opacity: 1; transform: translateY(0); } }
 
 #winners-list li { display: flex; justify-content: space-between; align-items: center; transition: all 0.3s ease; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border-color); }
-.winner-name-span { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.winner-date-span { font-size: 0.8rem; color: var(--secondary-text-color); flex-shrink: 0; margin-left: 0.625rem; }
+.winner-name-span { font-size: 0.95rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.winner-date-span { font-size: 0.7rem; color: var(--secondary-text-color); flex-shrink: 0; margin-left: 0.625rem; }
 #winners-list li.confirmed .winner-name-span { color: var(--success-color); }
 #winners-list li.confirmed .winner-name-span::before { content: '✓ '; }
 #winners-list li.failed .winner-name-span { color: var(--error-color); text-decoration: line-through; }
