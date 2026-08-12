@@ -350,12 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
             kickChannelSlug = data.slug;
             kickChatroomId = data.chatroom.id;
 
-            let startDate = new Date();
-            if (data.user && data.user.email_verified_at) {
-                startDate = new Date(data.user.email_verified_at);
-            } else if (data.created_at) {
-                startDate = new Date(data.created_at);
-            }
+            const startDate = new Date(data.chatroom.created_at);
 
             const now = new Date();
             const diffTime = Math.abs(now - startDate);
